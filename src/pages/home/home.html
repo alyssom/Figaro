@@ -1,18 +1,19 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="figaro">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Barbearias</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+<ion-content padding id="content">
+  <ion-list>
+    <ion-item *ngFor="let barbearia of barbearias">
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+      <h1>{{barbearia.nome}}</h1>
+      <p>{{barbearia.logradouro}}</p>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+    </ion-item>
+  </ion-list>
 </ion-content>
