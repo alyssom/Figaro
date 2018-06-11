@@ -15,11 +15,15 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarbeariasProvider } from '../providers/barbearias/barbearias';
 
+import { Geolocation } from '@ionic-native/geolocation';
+import { MapaPage } from '../pages/mapa/mapa';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    MapaPage
   ],
   imports: [
     BrowserModule,
@@ -31,13 +35,15 @@ import { BarbeariasProvider } from '../providers/barbearias/barbearias';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    MapaPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    BarbeariasProvider
+    BarbeariasProvider,
+    Geolocation 
   ]
 })
 export class AppModule {}
