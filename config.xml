@@ -3,7 +3,7 @@
     <name>Figaro</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://10.0.0.115:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -87,7 +87,9 @@
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
-    <engine name="android" spec="7.0.0" />
     <allow-navigation href="http://192.168.43.48:8100" />
     <allow-navigation href="http://169.254.173.143:8100" />
+    <plugin name="cordova-plugin-advanced-http" spec="^1.11.1" />
+    <allow-navigation href="http://10.0.0.115:8100" />
+    <engine name="android" spec="7.0.0" />
 </widget>

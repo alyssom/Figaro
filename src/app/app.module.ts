@@ -17,6 +17,7 @@ import { BarbeariasProvider } from '../providers/barbearias/barbearias';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { MapaPage } from '../pages/mapa/mapa';
+import { HTTP } from '@ionic-native/http';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { MapaPage } from '../pages/mapa/mapa';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BarbeariasProvider,
-    Geolocation 
+    Geolocation,
+    HTTP 
   ]
 })
 export class AppModule {}
