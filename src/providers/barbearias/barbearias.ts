@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 /*
   Generated class for the BarbeariasProvider provider.
@@ -24,6 +24,17 @@ export class BarbeariasProvider {
       }
     )
     return barbearias;
+  }
+
+  getBarbeariasSearch(start, end): FirebaseListObservable<any>{
+    return this.db.list('/barbearias', {
+      query: {
+        orderByChild: 'nome',
+        limitToFirst: 10,
+        startAt: start,
+        endAt: end
+      }
+    })
   }
 
 }

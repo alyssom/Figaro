@@ -5,6 +5,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { MapaPage } from '../pages/mapa/mapa';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -16,15 +17,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarbeariasProvider } from '../providers/barbearias/barbearias';
 
 import { Geolocation } from '@ionic-native/geolocation';
-import { MapaPage } from '../pages/mapa/mapa';
 import { HTTP } from '@ionic-native/http';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
-    MapaPage
+    ListPage
   ],
   imports: [
     BrowserModule,
@@ -36,8 +35,7 @@ import { HTTP } from '@ionic-native/http';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
-    MapaPage
+    ListPage
   ],
   providers: [
     StatusBar,

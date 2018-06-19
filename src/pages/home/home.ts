@@ -4,6 +4,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { BarbeariasProvider } from '../../providers/barbearias/barbearias';
 import { HTTP } from '@ionic-native/http';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Subject } from 'rxjs/Subject';
 
 
 
@@ -12,12 +13,15 @@ import { Geolocation } from '@ionic-native/geolocation';
   templateUrl: 'home.html'
 })
 export class HomePage {
-
   
   barbearias = [];
   barbearias2 = [];
-  latAtual;
-  lonAtual;
+  
+  startAt = new Subject();
+  endAt = new Subject();
+
+  lastKeypress: number = 0;
+
   constructor(public navCtrl: NavController, 
               private db: AngularFireDatabase, 
               private provider: BarbeariasProvider,
@@ -26,18 +30,41 @@ export class HomePage {
         this.barbearias = this.provider.getBarbearias();
 
         this.getDistancia();
+
+  }
+  ionViewWillLoad(){
+    
   }
 
+  ngOnInit(){
+    this.provider.getBarbeariasSearch(this.startAt, this.endAt)
+                .subscribe(barbearias => this.barbearias = barbearias)
+  }
+
+  search($event){
+    if($event.timeStamp - this.lastKeypress > 200 && $event.target.value != undefined){
+      let q = $event.target.value
+      this.startAt.next(q)
+      this.endAt.next(q+"\uf8ff") 
+    }
+
+    this.lastKeypress = $event.timeStamp;
+
+  }
 
 getDistancia(){
 
+  var latAtual;
+  var lonAtual;
+
   this.geolocation.getCurrentPosition().then((resp) => {
-    this.latAtual = resp.coords.latitude
-    this.lonAtual = resp.coords.longitude
+    latAtual = resp.coords.latitude
+    lonAtual = resp.coords.longitude
+
     
     }).catch((error) => {
-      console.log('Error getting location', error);
-    });
+     console.log('Error getting location' + error);
+    }); 
 
   this.db.list('/barbearias', { preserveSnapshot: true })
       .subscribe(snapshots => {
@@ -48,18 +75,18 @@ getDistancia(){
           var localizacao = snapshot.val().localizacao;
           var resultadoDistancia;
 
-          this.http.get('https://maps.googleapis.com/maps/api/distancematrix/json?latlng=imperial&origins=' + this.latAtual + ',' + this.lonAtual + '&destinations='+ localizacao +'&key=AIzaSyBHnWvYeHBzzbos61tJSsAapvhSMBbcYn8', {}, {})
+          this.http.get('https://maps.googleapis.com/maps/api/distancematrix/json?latlng=imperial&origins=' + latAtual + ',' + lonAtual + '&destinations='+ snapshot.val().localizacao +'&key=AIzaSyBHnWvYeHBzzbos61tJSsAapvhSMBbcYn8', {}, {})
           .then(data => {
 
-            console.log(data.status);
-            resultadoDistancia = data.data.rows.elements.distance.text.value; // data received by server
-            alert(resultadoDistancia)
-            console.log(data.headers);
+            
+            resultadoDistancia = data.data; // data received by server
+            
+            
 
           })
           .catch(error => {
 
-            console.log(error.status);
+            console.log("error api" + error.status);
             console.log(error.error); // error message as string
             console.log(error.headers);
 
@@ -76,10 +103,6 @@ getDistancia(){
  
 
 }
-  
 
-  ionViewDidLoad(){
-    
-  }
 
 }
