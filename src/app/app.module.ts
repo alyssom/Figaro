@@ -18,12 +18,16 @@ import { BarbeariasProvider } from '../providers/barbearias/barbearias';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { HTTP } from '@ionic-native/http';
+import { DetalhesBarbeariaPage } from '../pages/detalhes-barbearia/detalhes-barbearia';
+import { AgendamentoPage } from '../pages/agendamento/agendamento';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    DetalhesBarbeariaPage,
+    AgendamentoPage
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,9 @@ import { HTTP } from '@ionic-native/http';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    DetalhesBarbeariaPage,
+    AgendamentoPage
   ],
   providers: [
     StatusBar,

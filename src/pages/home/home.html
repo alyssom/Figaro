@@ -10,9 +10,13 @@
 
 <ion-content padding id="content">
   <ion-list>
-    <ion-item *ngFor="let barbearia of barbearias">
+    <ion-item *ngFor="let barbearia of barbearias" on-click="barbeariaDetail(this.barbearia)">
+      
+      <ion-thumbnail item-start>
+        <img src="{{barbearia.foto}}">
+      </ion-thumbnail>
 
-      <h1>{{barbearia.nome}}</h1>
+      <h2 id="nome">{{barbearia.nome}}</h2>
       <p>{{barbearia.logradouro}}</p>
 
     </ion-item>

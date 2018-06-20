@@ -5,6 +5,7 @@ import { BarbeariasProvider } from '../../providers/barbearias/barbearias';
 import { HTTP } from '@ionic-native/http';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Subject } from 'rxjs/Subject';
+import { DetalhesBarbeariaPage } from '../detalhes-barbearia/detalhes-barbearia';
 
 
 
@@ -22,6 +23,9 @@ export class HomePage {
 
   lastKeypress: number = 0;
 
+  latAtual;
+  lonAtual;
+
   constructor(public navCtrl: NavController, 
               private db: AngularFireDatabase, 
               private provider: BarbeariasProvider,
@@ -29,21 +33,36 @@ export class HomePage {
               private geolocation: Geolocation) {
         this.barbearias = this.provider.getBarbearias();
 
+
+
         this.getDistancia();
 
   }
   ionViewWillLoad(){
-    
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.latAtual = resp.coords.latitude
+      this.lonAtual = resp.coords.longitude
+      alert(this.latAtual)
+      alert(this.lonAtual)
+      }).catch((error) => {
+       alert('Error getting location' + error);
+      }); 
   }
 
   ngOnInit(){
     this.provider.getBarbeariasSearch(this.startAt, this.endAt)
                 .subscribe(barbearias => this.barbearias = barbearias)
+              
+  }
+
+  barbeariaDetail(params) {
+    if (!params) params = {};
+    this.navCtrl.push(DetalhesBarbeariaPage, { obj: params });
   }
 
   search($event){
     if($event.timeStamp - this.lastKeypress > 200 && $event.target.value != undefined){
-      let q = $event.target.value
+      let q = $event.target.value.toUpperCase()
       this.startAt.next(q)
       this.endAt.next(q+"\uf8ff") 
     }
@@ -54,17 +73,7 @@ export class HomePage {
 
 getDistancia(){
 
-  var latAtual;
-  var lonAtual;
-
-  this.geolocation.getCurrentPosition().then((resp) => {
-    latAtual = resp.coords.latitude
-    lonAtual = resp.coords.longitude
-
-    
-    }).catch((error) => {
-     console.log('Error getting location' + error);
-    }); 
+  
 
   this.db.list('/barbearias', { preserveSnapshot: true })
       .subscribe(snapshots => {
@@ -75,12 +84,12 @@ getDistancia(){
           var localizacao = snapshot.val().localizacao;
           var resultadoDistancia;
 
-          this.http.get('https://maps.googleapis.com/maps/api/distancematrix/json?latlng=imperial&origins=' + latAtual + ',' + lonAtual + '&destinations='+ snapshot.val().localizacao +'&key=AIzaSyBHnWvYeHBzzbos61tJSsAapvhSMBbcYn8', {}, {})
+          this.http.get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=40.6655101,-73.89188969999998&destinations=40.6905615%2C-73.9976592%7C40.6905615%2C-73.9976592%7C40.6905615%2C-73.9976592%7C40.6905615%2C-73.9976592%7C40.6905615%2C-73.9976592%7C40.6905615%2C-73.9976592%7C40.659569%2C-73.933783%7C40.729029%2C-73.851524%7C40.6860072%2C-73.6334271%7C40.598566%2C-73.7527626%7C40.659569%2C-73.933783%7C40.729029%2C-73.851524%7C40.6860072%2C-73.6334271%7C40.598566%2C-73.7527626&key=AIzaSyBHnWvYeHBzzbos61tJSsAapvhSMBbcYn8', {}, {})
           .then(data => {
 
             
             resultadoDistancia = data.data; // data received by server
-            
+            console.log(resultadoDistancia)
             
 
           })
