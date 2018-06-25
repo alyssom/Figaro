@@ -1,0 +1,55 @@
+page-login {
+    
+    .scroll-content {
+        overflow: hidden;
+    }
+    .inputlog{
+        background-color: rgba(0, 0, 0, 0);
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        padding-right: 15px;
+    }
+    .indigo{
+        color: #2B3846;
+    }
+    .branco{
+        color: #ffffff;
+    }
+    .padder{
+        padding-left: 10%;
+        padding-right: 10%;
+        margin-top: 20%;
+    }
+    #logo{
+        padding-bottom: 15%;
+        padding-right: 15%;
+        padding-top: 15%;
+        padding-left: 15%;
+    }
+    .button {
+        border-color: #F8F6ED;
+        background-color: rgba(0, 0, 0, 0.300);
+        color: #F8F6ED;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+    }
+    #login{
+        background-image: url(https://i.imgur.com/ph59Pd0.jpg);
+        background-size: cover;
+        background-position: center;
+    }
+    #icong{
+        margin-right:10px;
+    }
+    #emailText{
+        color: white;
+        size: 20px;
+    }
+    #senhaText{
+        color: white;
+        size: 20px;
+    }
+}

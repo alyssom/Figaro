@@ -9,6 +9,7 @@ import { MapaPage } from '../pages/mapa/mapa';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { FIREBASE_CREDENCIAL } from './firebase.credencial';
 
@@ -20,6 +21,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { HTTP } from '@ionic-native/http';
 import { DetalhesBarbeariaPage } from '../pages/detalhes-barbearia/detalhes-barbearia';
 import { AgendamentoPage } from '../pages/agendamento/agendamento';
+import { LoginPage } from '../pages/login/login';
 
 @NgModule({
   declarations: [
@@ -27,13 +29,15 @@ import { AgendamentoPage } from '../pages/agendamento/agendamento';
     HomePage,
     ListPage,
     DetalhesBarbeariaPage,
-    AgendamentoPage
+    AgendamentoPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CREDENCIAL),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -41,7 +45,8 @@ import { AgendamentoPage } from '../pages/agendamento/agendamento';
     HomePage,
     ListPage,
     DetalhesBarbeariaPage,
-    AgendamentoPage
+    AgendamentoPage,
+    LoginPage
   ],
   providers: [
     StatusBar,

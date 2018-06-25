@@ -24,6 +24,8 @@ export class BarbeariasProvider {
       }
     )
     return barbearias;
+
+    
   }
 
   getBarbeariasSearch(start, end): FirebaseListObservable<any>{

@@ -1,0 +1,30 @@
+
+<ion-content padding id="login">
+  <div id="infoLogin" class="padder">
+
+    <img src="https://i.imgur.com/pwJWQMC.png" alt="Figaro" id="logo">
+
+    <ion-item class="inputlog">
+      <ion-label class="indigo" id="emailText" floating>Email:</ion-label>
+      <ion-input class="branco" type="email" [(ngModel)]="user.email"></ion-input>
+    </ion-item>
+
+    <ion-item class="inputlog">
+      <ion-label class="indigo" id="senhaText" floating>Senha:</ion-label>
+      <ion-input class="branco" type="password" [(ngModel)]="user.senha"></ion-input>
+    </ion-item>
+
+    <div id="ButtonsLogin">
+      <button ion-button round outline class="button button-block" (click)="login(user)">
+        Login
+      </button>
+      <button ion-button round outline class="button button-block" (click)="register()" id="botaoCadastrar">
+        Cadastro
+      </button>
+      <button ion-button round outline class="button button-block" (click)="googleLogin()" id="botaoGoogle">
+        <ion-icon name="logo-googleplus" id="icong"></ion-icon>
+        Login com conta Google
+      </button>
+    </div>
+  </div>
+</ion-content>

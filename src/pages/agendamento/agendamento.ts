@@ -71,7 +71,8 @@ export class AgendamentoPage {
 
   salvarAgendamento(horario, servico) {
 
-      
+    const swal = require('sweetalert2')
+
     if (horario != null || servico != null) {
     
       var duracao;
@@ -93,8 +94,20 @@ export class AgendamentoPage {
 
     this.navCtrl.pop();
 
-
-
+    swal({
+      position: 'center',
+      type: 'success',
+      title: 'Feito! Horário agendado com sucesso.',
+      showConfirmButton: false,
+      timer: 2000
+    })
+      }else{
+        swal(
+          'Oops...',
+          'Informe o horário e o serviço que deseja.',
+          'error'
+        )
+      
     
 
     }
