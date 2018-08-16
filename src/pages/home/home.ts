@@ -25,6 +25,7 @@ export class HomePage {
 
   latAtual;
   lonAtual;
+  enderecoAtual;
 
   constructor(public navCtrl: NavController, 
               private db: AngularFireDatabase, 
@@ -42,18 +43,87 @@ export class HomePage {
                   timer: 2000
                 })
         
+        this.geolocation.getCurrentPosition().then((resp) => {
+          this.latAtual = resp.coords.latitude
+          this.lonAtual = resp.coords.longitude
+          
+                  this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.latAtual + ',' + this.lonAtual + '&sensor=false&key=AIzaSyBHnWvYeHBzzbos61tJSsAapvhSMBbcYn8', {}, {})
+                  .then(data => {
+                    let minhaLocalizacao;
+                    minhaLocalizacao = data.data; // data received by server
+
+                    
+                    var obj = JSON.parse(minhaLocalizacao);
+                    var results = obj.results;
+                    var cont = 0; 
+                    results.forEach(element => {
+                      cont++;
+                      if(cont == 1){
+                        this.enderecoAtual = element.formatted_address
+
+                             
+                    this.db.list('/barbearias', { preserveSnapshot: true })
+                    .subscribe(snapshots => {
+                      snapshots.forEach(snapshot => {
+
+                        var nome = snapshot.val().nome;
+                        var logradouro = snapshot.val().logradouro;
+                        var localizacao = snapshot.val().localizacao;
+                        var resultadoDistancia;
+
+                        this.http.get('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+ this.enderecoAtual +'&destinations=' + logradouro + '&key=AIzaSyBHnWvYeHBzzbos61tJSsAapvhSMBbcYn8', {}, {})
+                        .then(data => {
+                          
+                          resultadoDistancia = data.data; // data received by server
+
+                          var obj = JSON.parse(resultadoDistancia);
+                          var rows = obj.rows;
+                          
+                          rows.forEach(row => {
+                            alert(row.elements.distance)
+                            
+                          })
+                          
+
+                        })
+                        .catch(error => {
+
+                          console.log("error api" + error.status);
+                          console.log(error.error); // error message as string
+                          console.log(error.headers);
+
+                        });
+                        
+                      }
+                      )
+                    }
+
+
+                    )
+                      }
+                      
+                    });
+
+                  })
+                  .catch(error => {
+
+                    console.log("error api" + error.status);
+                    console.log(error.error); // error message as string
+                    console.log(error.headers);
+
+                  });
+          
+          alert(this.latAtual)
+          alert(this.lonAtual)
+          }).catch((error) => {
+            console.log('Error getting location' + error);
+          }); 
+                  
+        
   }
   
   ionViewDidLoad(){
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.latAtual = resp.coords.latitude
-      this.lonAtual = resp.coords.longitude
-      }).catch((error) => {
-       console.log('Error getting location' + error);
-      }); 
-
-      this.getDistancia();
-      
+    
   }
 
   ngOnInit(){
@@ -78,45 +148,7 @@ export class HomePage {
 
   }
 
-getDistancia(){
 
-  this.db.list('/barbearias', { preserveSnapshot: true })
-      .subscribe(snapshots => {
-        snapshots.forEach(snapshot => {
-
-          var nome = snapshot.val().nome;
-          var logradouro = snapshot.val().logradouro;
-          var localizacao = snapshot.val().localizacao;
-          var resultadoDistancia;
-
-          this.http.get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins='+ this.latAtual + this.lonAtual +'&destinations=' + localizacao + '&key=AIzaSyBHnWvYeHBzzbos61tJSsAapvhSMBbcYn8', {}, {})
-          .then(data => {
-            debugger
-            
-            resultadoDistancia = data.data; // data received by server
-            console.log(resultadoDistancia)
-            
-
-          })
-          .catch(error => {
-
-            console.log("error api" + error.status);
-            console.log(error.error); // error message as string
-            console.log(error.headers);
-
-          });
-          
-        }
-        )
-      }
-
-
-      )
-
- 
- 
-
-}
 
 
 }
