@@ -32,7 +32,7 @@ export class HomePage {
               private provider: BarbeariasProvider,
               private http: HTTP,
               private geolocation: Geolocation) {
-        this.barbearias = this.provider.getBarbearias();
+        
         
         const swal = require('sweetalert2')
                 swal({
@@ -67,8 +67,8 @@ export class HomePage {
                       snapshots.forEach(snapshot => {
 
                         var nome = snapshot.val().nome;
+                        var foto = snapshot.val().foto;
                         var logradouro = snapshot.val().logradouro;
-                        var localizacao = snapshot.val().localizacao;
                         var resultadoDistancia;
 
                         this.http.get('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+ this.enderecoAtual +'&destinations=' + logradouro + '&key=AIzaSyBHnWvYeHBzzbos61tJSsAapvhSMBbcYn8', {}, {})
@@ -80,10 +80,17 @@ export class HomePage {
                           var rows = obj.rows;
                           
                           rows.forEach(row => {
-                            alert(row.elements.distance)
-                            
+                            var elements = row.elements
+                              elements.forEach(element => {
+                                resultadoDistancia = element.distance.text;
+                              })
                           })
-                          
+                          this.barbearias.push({
+                            "nome": nome,
+                            "logradouro": logradouro,
+                            "distancia": resultadoDistancia,
+                            "foto": foto
+                          })
 
                         })
                         .catch(error => {
@@ -112,9 +119,6 @@ export class HomePage {
                     console.log(error.headers);
 
                   });
-          
-          alert(this.latAtual)
-          alert(this.lonAtual)
           }).catch((error) => {
             console.log('Error getting location' + error);
           }); 
