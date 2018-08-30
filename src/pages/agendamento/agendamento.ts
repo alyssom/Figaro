@@ -19,40 +19,35 @@ export class AgendamentoPage {
   nome;
   servicos;
   obj;
-  horario_de;
-  horario_ate;
+  horarioAbre;
+  horarioFecha;
   horarios = [];
-  data;
+  dataAtual;
+  dataAgendamento;
 
   constructor(public navCtrl: NavController, public NavParams: NavParams, private fdb: AngularFireDatabase) {
     this.obj = this.NavParams.data.obj;
     this.nome = this.NavParams.data.obj.nome;
     this.servicos = this.NavParams.data.obj.servicos;
-    this.horario_de = this.NavParams.data.obj.horario_de;
-    this.horario_ate = this.NavParams.data.obj.horario_ate;
+    this.horarioAbre = this.NavParams.data.obj.horario_de;
+    this.horarioFecha = this.NavParams.data.obj.horario_ate;
+    this.horarios = this.NavParams.data.horarios;
 
     var d = new Date();
-    this.data = d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear();
+    this.dataAtual = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate() ;
     var h = d.getHours();
     var m = d.getMinutes();
 
 
-    for (this.horario_de; this.horario_de <= this.horario_ate; this.horario_de++) {
-
-      if (this.horario_de > h) {
-
-        this.horarios.push(this.horario_de + ":00");
+   
   
-        this.horarios.push(this.horario_de + ":30");
-      }
-  }
 
   //busca os agendamentos
   this.fdb.list('/agendamentos/' + this.nome + "/", { preserveSnapshot: true })
   .subscribe(snapshots => {
     snapshots.forEach(snapshot => {
      // console.log(snapshot.val().data)
-      if (this.data == snapshot.val().data) {
+      if (this.dataAtual == snapshot.val().data) {
         var index = this.horarios.indexOf(snapshot.val().horario);
         if (index > -1) {
           this.horarios.splice(index, 1);
@@ -83,12 +78,14 @@ export class AgendamentoPage {
       duracao = "30min"
     }
 
-    this.fdb.list("/agendamentos/" + this.nome + "/").push({
+    this.fdb.list("/agendamentos/").push({
       horario: horario,
       duracao: duracao,
       nome: this.nome,
-      data: this.data,
+      dataAtual: this.dataAtual,
+      dataAgendamento: this.dataAgendamento,
       servico: servico,
+      nomeCliente: "Alyssom Falkenberg"
     });
 
 

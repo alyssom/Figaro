@@ -21,8 +21,8 @@ export class DetalhesBarbeariaPage {
   foto;
   servicos;
 
-  horario_de;
-  horario_ate
+  horarioAbre;
+  horarioFecha;
   horarios = [];
   horariosAtendimento = "";
   
@@ -34,25 +34,19 @@ export class DetalhesBarbeariaPage {
     this.servicos = this.navParams.data.obj.servicos;
 
 
-
-    this.horario_de = this.navParams.data.obj.horario_de;
-    this.horario_ate = this.navParams.data.obj.horario_ate;
+    this.horarioAbre = this.navParams.data.obj.horario_de;
+    this.horarioFecha = this.navParams.data.obj.horario_ate;
 
     var d = new Date();
 
     var h = d.getHours();
     var m = d.getMinutes();
 
-    this.horariosAtendimento += this.horario_de + ":00";
-    this.horariosAtendimento += " as " + this.horario_ate + ":00";
-    for (this.horario_de; this.horario_de <= this.horario_ate; this.horario_de++) {
-
-
-
-      if (this.horario_de > h) {
-         this.horarios.push(this.horario_de + ":00");
-         this.horarios.push(this.horario_de + ":30");
-      }
+    this.horariosAtendimento += this.horarioAbre + ":00";
+    this.horariosAtendimento += " as " + this.horarioFecha + ":00";
+    for (this.horarioAbre; this.horarioAbre < this.horarioFecha; this.horarioAbre++) {
+         this.horarios.push(this.horarioAbre + ":00");
+         this.horarios.push(this.horarioAbre + ":30");
     }
 
 
@@ -62,11 +56,10 @@ export class DetalhesBarbeariaPage {
     if (this.horarios.length > 0) {
 
       if (!params) params = {};
-      this.navCtrl.push(AgendamentoPage, { obj: params });
+      this.navCtrl.push(AgendamentoPage, { obj: params, "horarios": this.horarios });
     } else {
       document.getElementById("botaoAgendar").hidden = true;
       alert('sem horários disponíveis');
-
     }
   }
 

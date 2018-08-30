@@ -19,6 +19,10 @@
 <ion-content padding id="agendamento">
   <div id="divAgendamento">
     <ion-item>
+        <ion-label>Calendário</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="dataAgendamento"></ion-datetime>
+    </ion-item>
+    <ion-item>
       <ion-label>Horários</ion-label>
       <ion-select [(ngModel)]="hora">
         <ion-option value="{{horario}}" *ngFor="let horario of horarios"> {{horario}}</ion-option>
