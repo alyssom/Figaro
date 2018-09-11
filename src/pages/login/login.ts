@@ -6,6 +6,7 @@ import { HomePage } from '../home/home';
 import * as firebase from 'firebase'; 
 import * as swal from 'sweetalert2';
 import { User } from '../../models/user';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 /**
  * Generated class for the LoginPage page.
@@ -21,9 +22,18 @@ import { User } from '../../models/user';
 })
 export class LoginPage {
   user = {} as User;
-  constructor(private afAuth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private afAuth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams, public googlePlus: GooglePlus) {
   }
 
+  googleLogin(){
+    this.googlePlus.login({})
+    .then(res => {
+      alert(res.user)
+      this.navCtrl.push(HomePage);
+    })
+    .catch(err => alert(err));
+  }
+  
   async login(user: User, params){
   const swal = require('sweetalert2')
   
@@ -48,28 +58,28 @@ export class LoginPage {
         
 }
 
-googleLogin(params){
+// googleLogin(params){
 
-  const swal = require('sweetalert2')
-  this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(user => {
-    console.log(user);
-    this.navCtrl.push(HomePage);
-    swal({
-      position: 'center',
-      type: 'success',
-      title: 'Aproveite nossos descontos de natal, até 30% OFF',
-      showConfirmButton: false,
-      timer: 3500
-    })
-  }
-  ).catch(err =>  {
-    swal(
-      'Oops...',
-      'Acho que você não desligou o CORS.',
-      'error'
-    )
-  })
-}
+//   const swal = require('sweetalert2')
+//   this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(user => {
+//     console.log(user);
+//     this.navCtrl.push(HomePage);
+//     swal({
+//       position: 'center',
+//       type: 'success',
+//       title: 'Aproveite nossos descontos de natal, até 30% OFF',
+//       showConfirmButton: false,
+//       timer: 3500
+//     })
+//   }
+//   ).catch(err =>  {
+//     swal(
+//       'Oops...',
+//       'Acho que você não desligou o CORS.',
+//       'error'
+//     )
+//   })
+// }
 
   register(){
     this.navCtrl.push('RegisterPage');
