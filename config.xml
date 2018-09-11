@@ -95,9 +95,6 @@
     <plugin name="cordova-plugin-advanced-http" spec="^1.11.1" />
     <allow-navigation href="http://10.0.0.115:8100" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
-    <plugin name="cordova-plugin-googleplus" spec="^5.3.1">
-        <variable name="REVERSED_CLIENT_ID" value="491412402447-c8d6buvbjvm20evim9po39j1qf7hv2v5.apps.googleusercontent.com" />
-    </plugin>
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.4" />
 </widget>

@@ -18,8 +18,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarbeariasProvider } from '../providers/barbearias/barbearias';
 
 import { Geolocation } from '@ionic-native/geolocation';
-import { GooglePlus } from '@ionic-native/google-plus';
-
 import { HTTP } from '@ionic-native/http';
 import { DetalhesBarbeariaPage } from '../pages/detalhes-barbearia/detalhes-barbearia';
 import { AgendamentoPage } from '../pages/agendamento/agendamento';
@@ -56,8 +54,7 @@ import { LoginPage } from '../pages/login/login';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BarbeariasProvider,
     Geolocation,
-    HTTP,
-    GooglePlus 
+    HTTP 
   ]
 })
 export class AppModule {}

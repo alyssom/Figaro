@@ -44,39 +44,39 @@ export class HomePage {
                   showConfirmButton: false,
                   timer: 2000
                 })
-                
-        // if(platform.is('core')){
+        if(platform.is('core')){
           
-        //   this.db.list('/barbearias', { preserveSnapshot: true })
-        //     .subscribe(snapshots => {
-        //       snapshots.forEach(snapshot => {
+          this.db.list('/barbearias', { preserveSnapshot: true })
+            .subscribe(snapshots => {
+              snapshots.forEach(snapshot => {
                 
-        //                   var nome = snapshot.val().nome;
-        //                   var foto = snapshot.val().foto;
-        //                   var logradouro = snapshot.val().logradouro;
-        //                   var horarioAbre = snapshot.val().horario_de;
-        //                   var horarioFecha = snapshot.val().horario_ate;
-        //                   var resultadoDistancia = '0,1 Km';
+                          var nome = snapshot.val().nome;
+                          var foto = snapshot.val().foto;
+                          var logradouro = snapshot.val().logradouro;
+                          var horarioAbre = snapshot.val().horario_de;
+                          var horarioFecha = snapshot.val().horario_ate;
+                          var resultadoDistancia = '0,1 Km';
 
-        //                   this.barbearias.push({
-        //                     "nome": nome,
-        //                     "logradouro": logradouro,
-        //                     "distancia": resultadoDistancia,
-        //                     "foto": foto,
-        //                     "horarioAbre": horarioAbre,
-        //                     "horarioFecha": horarioFecha
-        //                   })
-        //       }
-        //     )})
-        // }else{
+                          this.barbearias.push({
+                            "nome": nome,
+                            "logradouro": logradouro,
+                            "distancia": resultadoDistancia,
+                            "foto": foto,
+                            "horarioAbre": horarioAbre,
+                            "horarioFecha": horarioFecha
+                          })
+              }
+            )})
+        }else{
           this.geolocation.getCurrentPosition().then((resp) => {
             this.latAtual = resp.coords.latitude
             this.lonAtual = resp.coords.longitude
-            alert(this.latAtual)
+            
                     this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.latAtual + ',' + this.lonAtual + '&sensor=false&key=AIzaSyBHnWvYeHBzzbos61tJSsAapvhSMBbcYn8', {}, {})
                     .then(data => {
                       let minhaLocalizacao;
                       minhaLocalizacao = data.data; // data received by server
+  
                       
                       var obj = JSON.parse(minhaLocalizacao);
                       var results = obj.results;
@@ -97,7 +97,7 @@ export class HomePage {
                           var horarioAbre = snapshot.val().horario_de;
                           var horarioFecha = snapshot.val().horario_ate;
                           var resultadoDistancia;
-                          
+  
                           this.http.get('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+ this.enderecoAtual +'&destinations=' + logradouro + '&key=AIzaSyBHnWvYeHBzzbos61tJSsAapvhSMBbcYn8', {}, {})
                           .then(data => {
                             
@@ -120,10 +120,11 @@ export class HomePage {
                               "horarioAbre": horarioAbre,
                               "horarioFecha": horarioFecha
                             })
+  
                           })
                           .catch(error => {
   
-                            alert("error api" + error.status);
+                            console.log("error api" + error.status);
                             console.log(error.error); // error message as string
                             console.log(error.headers);
   
@@ -154,7 +155,7 @@ export class HomePage {
 
                   
         
-  //}
+  }
   
   ionViewDidLoad(){
     
