@@ -34,8 +34,8 @@ export class DetalhesBarbeariaPage {
     this.servicos = this.navParams.data.obj.servicos;
 
 
-    this.horarioAbre = this.navParams.data.obj.horario_de;
-    this.horarioFecha = this.navParams.data.obj.horario_ate;
+    this.horarioAbre = this.navParams.data.obj.horarioAbre;
+    this.horarioFecha = this.navParams.data.obj.horarioFecha;
 
     var d = new Date();
 

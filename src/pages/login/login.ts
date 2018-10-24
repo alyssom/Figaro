@@ -26,8 +26,6 @@ export class LoginPage {
 
   async login(user: User, params){
   const swal = require('sweetalert2')
-  
-
         const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.senha).then(user => {
           this.navCtrl.push(HomePage);
           swal({

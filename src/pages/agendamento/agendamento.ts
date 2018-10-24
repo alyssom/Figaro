@@ -85,7 +85,8 @@ export class AgendamentoPage {
       dataAtual: this.dataAtual,
       dataAgendamento: this.dataAgendamento,
       servico: servico,
-      nomeCliente: "Alyssom Falkenberg"
+      nomeCliente: "Alyssom Falkenberg",
+      atendido: false
     });
 
 
