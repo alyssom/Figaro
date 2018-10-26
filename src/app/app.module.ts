@@ -22,6 +22,7 @@ import { HTTP } from '@ionic-native/http';
 import { DetalhesBarbeariaPage } from '../pages/detalhes-barbearia/detalhes-barbearia';
 import { AgendamentoPage } from '../pages/agendamento/agendamento';
 import { LoginPage } from '../pages/login/login';
+import { MeusAgendamentosPage } from '../pages/meus-agendamentos/meus-agendamentos';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { LoginPage } from '../pages/login/login';
     ListPage,
     DetalhesBarbeariaPage,
     AgendamentoPage,
-    LoginPage
+    LoginPage,
+    MeusAgendamentosPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ import { LoginPage } from '../pages/login/login';
     ListPage,
     DetalhesBarbeariaPage,
     AgendamentoPage,
-    LoginPage
+    LoginPage,
+    MeusAgendamentosPage
   ],
   providers: [
     StatusBar,

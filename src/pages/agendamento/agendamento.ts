@@ -24,6 +24,9 @@ export class AgendamentoPage {
   horarios = [];
   dataAtual;
   dataAgendamento;
+  duplicado = [];
+  foto;
+   swal = require('sweetalert2')
 
   constructor(public navCtrl: NavController, public NavParams: NavParams, private fdb: AngularFireDatabase) {
     this.obj = this.NavParams.data.obj;
@@ -32,15 +35,12 @@ export class AgendamentoPage {
     this.horarioAbre = this.NavParams.data.obj.horario_de;
     this.horarioFecha = this.NavParams.data.obj.horario_ate;
     this.horarios = this.NavParams.data.horarios;
-
+    this.foto = this.NavParams.data.foto;
     var d = new Date();
     this.dataAtual = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate() ;
     var h = d.getHours();
     var m = d.getMinutes();
 
-
-   
-  
 
   //busca os agendamentos
   this.fdb.list('/agendamentos/' + this.nome + "/", { preserveSnapshot: true })
@@ -65,52 +65,77 @@ export class AgendamentoPage {
   }
 
   salvarAgendamento(horario, servico) {
-
-    const swal = require('sweetalert2')
-
     if (horario != null || servico != null) {
-    
       var duracao;
-
     if (servico == "barbaEcabelo") {
       duracao = "1h";
     } else {
       duracao = "30min"
     }
-
-    this.fdb.list("/agendamentos/").push({
-      horario: horario,
-      duracao: duracao,
-      nome: this.nome,
-      dataAtual: this.dataAtual,
-      dataAgendamento: this.dataAgendamento,
-      servico: servico,
-      nomeCliente: "Alyssom Falkenberg",
-      atendido: false
-    });
-
-
-    this.navCtrl.pop();
-
-    swal({
-      position: 'center',
-      type: 'success',
-      title: 'Feito! Horário agendado com sucesso.',
-      showConfirmButton: false,
-      timer: 2000
-    })
-      }else{
-        swal(
-          'Oops...',
-          'Informe o horário e o serviço que deseja.',
-          'error'
-        )
-      
-    
-
+    if(horario == null || horario == undefined){
+      this.swal(
+        'Oops...',
+        'Informe o Horário que deseja.',
+        'error'
+      )
     }
+    if(servico == null || servico == undefined){
+      this.swal(
+        'Oops...',
+        'Informe o Serviço que deseja.',
+        'error'
+      )
+    }
+    if(this.dataAgendamento == null || this.dataAgendamento == undefined){
+      this.swal(
+        'Oops...',
+        'Informe a Data de seu Agendamento.',
+        'error'
+      )
+    }
+  
+    // this.fdb.list('agendamentos/', {preserveSnapshot: true})
+    // .subscribe(snapshots => {
+    //   snapshots.forEach(snapshot => {
+    //     if(snapshot.val().nome == this.nome && snapshot.val().horario == horario){
+    //       alert(snapshot.val().nome)
+    //       alert(this.nome)
+    //       alert(snapshot.val().horario)
+    //       alert(horario)
+    //       this.swal(
+    //         'Oops...',
+    //         'Este Horário já esta agendado por outro Cliente.',
+    //         'error'
+    //       )
+    //     }
+    //   })
+    // })
+   
+    
+      
+        this.fdb.list("/agendamentos/").push({
+          horario: horario,
+          duracao: duracao,
+          nome: this.nome,
+          dataAtual: this.dataAtual,
+          dataAgendamento: this.dataAgendamento,
+          servico: servico,
+          nomeCliente: "Alyssom Falkenberg",
+          atendido: false
+        });
+        this.swal({
+          position: 'center',
+          type: 'success',
+          title: 'Feito! Horário agendado com sucesso.',
+          showConfirmButton: false,
+          timer: 2000
+        })
 
-
+        this.navCtrl.pop();
+      
+      }
   }
 
+
+  
 }

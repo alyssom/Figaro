@@ -96,6 +96,7 @@ export class HomePage {
                           var logradouro = snapshot.val().logradouro;
                           var horarioAbre = snapshot.val().horario_de;
                           var horarioFecha = snapshot.val().horario_ate;
+                          //var estacionamento = snapshot.val().estacionamento;
                           var resultadoDistancia;
   
                           this.http.get('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+ this.enderecoAtual +'&destinations=' + logradouro + '&key=AIzaSyBHnWvYeHBzzbos61tJSsAapvhSMBbcYn8', {}, {})
