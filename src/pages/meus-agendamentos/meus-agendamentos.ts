@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { BarbeariasProvider } from '../../providers/barbearias/barbearias';
 
 /**
  * Generated class for the MeusAgendamentosPage page.
@@ -17,18 +18,22 @@ import { AngularFireDatabase } from 'angularfire2/database';
 export class MeusAgendamentosPage {
   agendamentos = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db: AngularFireDatabase) {
-  }
-
-  ionViewDidLoad() {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db: AngularFireDatabase,
+    private provider: BarbeariasProvider) {
     this.db.list('/agendamentos', { preserveSnapshot: true })
     .subscribe(snapshots => {
       snapshots.forEach(snapshot => {
-        this.agendamentos.push(snapshot);
+        console.log(snapshot);
+        console.log(provider.user)
+        if(snapshot.val().emailCliente == provider.user.email){
+          this.agendamentos.push(snapshot.val());
+        }
       }
       )
     })
-  
+  }
+
+  ionViewDidLoad() {
   }
 
 }

@@ -5,9 +5,12 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="figaro">
-    <ion-title>Meus Agendamentos</ion-title>
-  </ion-navbar>
+    <ion-navbar color="figaro">
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Meus Agendamentos</ion-title>
+      </ion-navbar>
 
 </ion-header>
 
@@ -21,10 +24,7 @@
     
           <h2 id="nome">{{agendamento.nome}}</h2>
           <p>{{agendamento.dataAgendamento}}</p>
-          <p>{{barbearia.servico}}</p>
+          <p>{{agendamento.servico}}</p>
         </ion-item>
       </ion-list>
-      <ion-item *ngIf="agendamentos == []" > 
-        <p>Você não contém agendamentos no momento.</p>
-      </ion-item>
 </ion-content>

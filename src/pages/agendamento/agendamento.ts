@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { BarbeariasProvider } from '../../providers/barbearias/barbearias';
 
 /**
  * Generated class for the AgendamentoPage page.
@@ -26,9 +27,12 @@ export class AgendamentoPage {
   dataAgendamento;
   duplicado = [];
   foto;
+  email;
+
    swal = require('sweetalert2')
 
-  constructor(public navCtrl: NavController, public NavParams: NavParams, private fdb: AngularFireDatabase) {
+  constructor(public navCtrl: NavController, public NavParams: NavParams, private fdb: AngularFireDatabase,
+    private provider: BarbeariasProvider) {
     this.obj = this.NavParams.data.obj;
     this.nome = this.NavParams.data.obj.nome;
     this.servicos = this.NavParams.data.obj.servicos;
@@ -36,6 +40,8 @@ export class AgendamentoPage {
     this.horarioFecha = this.NavParams.data.obj.horario_ate;
     this.horarios = this.NavParams.data.horarios;
     this.foto = this.NavParams.data.foto;
+    this.email = provider.user.email;
+
     var d = new Date();
     this.dataAtual = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate() ;
     var h = d.getHours();
@@ -65,6 +71,7 @@ export class AgendamentoPage {
   }
 
   salvarAgendamento(horario, servico) {
+   
     if (horario != null || servico != null) {
       var duracao;
     if (servico == "barbaEcabelo") {
@@ -110,9 +117,7 @@ export class AgendamentoPage {
     //     }
     //   })
     // })
-   
-    
-      
+
         this.fdb.list("/agendamentos/").push({
           horario: horario,
           duracao: duracao,
@@ -120,7 +125,7 @@ export class AgendamentoPage {
           dataAtual: this.dataAtual,
           dataAgendamento: this.dataAgendamento,
           servico: servico,
-          nomeCliente: "Alyssom Falkenberg",
+          emailCliente: this.email,
           atendido: false
         });
         this.swal({

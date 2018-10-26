@@ -23,6 +23,7 @@ import { DetalhesBarbeariaPage } from '../pages/detalhes-barbearia/detalhes-barb
 import { AgendamentoPage } from '../pages/agendamento/agendamento';
 import { LoginPage } from '../pages/login/login';
 import { MeusAgendamentosPage } from '../pages/meus-agendamentos/meus-agendamentos';
+import { CadastroPage } from '../pages/cadastro/cadastro';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MeusAgendamentosPage } from '../pages/meus-agendamentos/meus-agendament
     DetalhesBarbeariaPage,
     AgendamentoPage,
     LoginPage,
-    MeusAgendamentosPage
+    MeusAgendamentosPage,
+    CadastroPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { MeusAgendamentosPage } from '../pages/meus-agendamentos/meus-agendament
     DetalhesBarbeariaPage,
     AgendamentoPage,
     LoginPage,
-    MeusAgendamentosPage
+    MeusAgendamentosPage,
+    CadastroPage
   ],
   providers: [
     StatusBar,

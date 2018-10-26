@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController, Platform, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { BarbeariasProvider } from '../../providers/barbearias/barbearias';
 import { HTTP } from '@ionic-native/http';
@@ -27,15 +27,18 @@ export class HomePage {
   latAtual;
   lonAtual;
   enderecoAtual;
-
+  user;
   constructor(public navCtrl: NavController, 
               private db: AngularFireDatabase, 
               private provider: BarbeariasProvider,
               private http: HTTP,
               private geolocation: Geolocation,
-              private platform: Platform) {
+              private platform: Platform,
+              private navParms: NavParams
+              ) {
         
-        
+        this.user = navParms.data.user;
+        provider.user = this.user;
         const swal = require('sweetalert2')
                 swal({
                   position: 'center',
@@ -44,6 +47,8 @@ export class HomePage {
                   showConfirmButton: false,
                   timer: 2000
                 })
+
+
         if(platform.is('core')){
           
           this.db.list('/barbearias', { preserveSnapshot: true })
@@ -170,7 +175,7 @@ export class HomePage {
 
   barbeariaDetail(params) {
     if (!params) params = {};
-    this.navCtrl.push(DetalhesBarbeariaPage, { obj: params });
+    this.navCtrl.push(DetalhesBarbeariaPage, { obj: params, user: this.user });
   }
 
   search($event){

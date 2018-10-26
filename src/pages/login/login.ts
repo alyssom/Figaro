@@ -6,6 +6,8 @@ import { HomePage } from '../home/home';
 import * as firebase from 'firebase'; 
 import * as swal from 'sweetalert2';
 import { User } from '../../models/user';
+import { CadastroPage } from '../cadastro/cadastro';
+import { BarbeariasProvider } from '../../providers/barbearias/barbearias';
 
 /**
  * Generated class for the LoginPage page.
@@ -21,13 +23,15 @@ import { User } from '../../models/user';
 })
 export class LoginPage {
   user = {} as User;
-  constructor(private afAuth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private afAuth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams,
+    private provider: BarbeariasProvider) {
   }
 
   async login(user: User, params){
   const swal = require('sweetalert2')
-        const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.senha).then(user => {
-          this.navCtrl.push(HomePage);
+        const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.senha).then(userLogou => {
+          console.log(user)
+          this.navCtrl.push(HomePage, { user: userLogou });
           swal({
             position: 'center',
             type: 'success',
@@ -50,7 +54,7 @@ googleLogin(params){
 
   const swal = require('sweetalert2')
   this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(user => {
-    console.log(user);
+    this.provider.user = user;
     this.navCtrl.push(HomePage);
     swal({
       position: 'center',
@@ -69,8 +73,8 @@ googleLogin(params){
   })
 }
 
-  register(){
-    this.navCtrl.push('RegisterPage');
+  cadastro(){
+    this.navCtrl.push(CadastroPage);
   }
 
 }

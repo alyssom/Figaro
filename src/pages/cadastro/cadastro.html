@@ -1,0 +1,27 @@
+<ion-header>
+
+  <ion-navbar color="figaro">
+    <ion-title>Cadastro</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding id="regist">
+  <div id="divCadastro">
+    
+    <ion-item class="inputlog">
+    <ion-label class="branco" floating>Email:</ion-label>
+    <ion-input class="branco" type="email" [(ngModel)]="user.email"></ion-input>
+    </ion-item>
+
+  <ion-item class="inputlog">
+    <ion-label class="branco" floating>Senha:</ion-label>
+    <ion-input class="branco" type="password" [(ngModel)]="user.senha"></ion-input>
+  </ion-item>
+
+  <div id="buttonResgister">
+    <button ion-button round outline class="button button-block" (click)="register(user)">Cadastrar</button>
+  </div>
+</div>
+</ion-content>

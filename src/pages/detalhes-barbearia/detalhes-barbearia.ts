@@ -20,6 +20,7 @@ export class DetalhesBarbeariaPage {
   logradouro;
   foto;
   servicos;
+  user;
 
   horarioAbre;
   horarioFecha;
@@ -32,7 +33,7 @@ export class DetalhesBarbeariaPage {
     this.logradouro = this.navParams.data.obj.logradouro;
     this.foto = this.navParams.data.obj.foto;
     this.servicos = this.navParams.data.obj.servicos;
-
+    this.user = this.navParams.data.user;
 
     this.horarioAbre = this.navParams.data.obj.horarioAbre;
     this.horarioFecha = this.navParams.data.obj.horarioFecha;
@@ -56,7 +57,7 @@ export class DetalhesBarbeariaPage {
     if (this.horarios.length > 0) {
 
       if (!params) params = {};
-      this.navCtrl.push(AgendamentoPage, { obj: params, "horarios": this.horarios });
+      this.navCtrl.push(AgendamentoPage, { obj: params, horarios: this.horarios, user: this.user  });
     } else {
       document.getElementById("botaoAgendar").hidden = true;
       alert('sem horários disponíveis');

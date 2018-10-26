@@ -10,6 +10,8 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 @Injectable()
 export class BarbeariasProvider {
 
+  public user;
+
   constructor(private db: AngularFireDatabase) {
   }
 
