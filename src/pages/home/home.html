@@ -2,11 +2,19 @@
       <button color="figaro" ion-button icon-only menuToggle >
           <ion-icon name="menu" > </ion-icon>
         </button>
-  
+        <ion-fab right edge id="fab">
+            <button ion-fab mini color="figaro"><ion-icon name="funnel"></ion-icon></button>
+            <ion-fab-list>
+              <button ion-fab on-click="filtraTodos()"><ion-icon name="list"></ion-icon></button>
+              <button ion-fab on-click="filtraEstacionamento()"><ion-icon name="car"></ion-icon></button>
+              <button ion-fab on-click="filtraBar()"><ion-icon name="beer"></ion-icon></button>
+            </ion-fab-list>
+          </ion-fab>
   <ion-searchbar (ionInput)="search($event)" placeholder="Buscar"></ion-searchbar>
 </ion-header>
 
 <ion-content padding id="content">
+    
   <ion-list>
     <ion-item *ngFor="let barbearia of barbearias" on-click="barbeariaDetail(this.barbearia)">
       

@@ -101,7 +101,8 @@ export class HomePage {
                           var logradouro = snapshot.val().logradouro;
                           var horarioAbre = snapshot.val().horario_de;
                           var horarioFecha = snapshot.val().horario_ate;
-                          //var estacionamento = snapshot.val().estacionamento;
+                          var estacionamento = snapshot.val().estacionamento;
+                          var bar = snapshot.val().bar;
                           var resultadoDistancia;
   
                           this.http.get('https://maps.googleapis.com/maps/api/distancematrix/json?origins='+ this.enderecoAtual +'&destinations=' + logradouro + '&key=AIzaSyBHnWvYeHBzzbos61tJSsAapvhSMBbcYn8', {}, {})
@@ -124,7 +125,9 @@ export class HomePage {
                               "distancia": resultadoDistancia,
                               "foto": foto,
                               "horarioAbre": horarioAbre,
-                              "horarioFecha": horarioFecha
+                              "horarioFecha": horarioFecha,
+                              "bar": bar,
+                              "estacionamento": estacionamento
                             })
   
                           })
@@ -187,6 +190,24 @@ export class HomePage {
 
     this.lastKeypress = $event.timeStamp;
 
+  }
+  
+  filtraEstacionamento(){
+    function barbeariasEstacionamento(element, index, array) { 
+      return (element.estacionamento == "sim"); 
+    } 
+    this.barbearias2 = this.barbearias;
+    this.barbearias = this.barbearias.filter(barbeariasEstacionamento);
+  }
+  filtraBar(){
+    function barbeariasBar(element, index, array) { 
+      return (element.bar == "sim"); 
+    } 
+    this.barbearias2 = this.barbearias
+    this.barbearias = this.barbearias.filter(barbeariasBar);
+  }
+  filtraTodos(){
+    this.barbearias = this.barbearias2;
   }
 
 
