@@ -71,7 +71,7 @@ export class AgendamentoPage {
   }
 
   salvarAgendamento(horario, servico) {
-   
+   var agendamentoDuplicado = false;
     if (horario != null || servico != null) {
       var duracao;
     if (servico == "barbaEcabelo") {
@@ -101,23 +101,20 @@ export class AgendamentoPage {
       )
     }
   
-    // this.fdb.list('agendamentos/', {preserveSnapshot: true})
-    // .subscribe(snapshots => {
-    //   snapshots.forEach(snapshot => {
-    //     if(snapshot.val().nome == this.nome && snapshot.val().horario == horario){
-    //       alert(snapshot.val().nome)
-    //       alert(this.nome)
-    //       alert(snapshot.val().horario)
-    //       alert(horario)
-    //       this.swal(
-    //         'Oops...',
-    //         'Este Horário já esta agendado por outro Cliente.',
-    //         'error'
-    //       )
-    //     }
-    //   })
-    // })
-
+    this.fdb.list('agendamentos/', {preserveSnapshot: true})
+    .subscribe(snapshots => {
+      snapshots.forEach(snapshot => {
+        if(snapshot.val().nome == this.nome && snapshot.val().horario == horario && snapshot.val().dataAgendamento == this.dataAgendamento){
+          agendamentoDuplicado = true;
+          this.swal(
+            'Oops...',
+            'Este Horário já esta agendado por outro Cliente.',
+            'error'
+          )
+        }
+      })
+    })
+      if(agendamentoDuplicado == false){
         this.fdb.list("/agendamentos/").push({
           horario: horario,
           duracao: duracao,
@@ -135,9 +132,8 @@ export class AgendamentoPage {
           showConfirmButton: false,
           timer: 2000
         })
-
         this.navCtrl.pop();
-      
+      }
       }
   }
 

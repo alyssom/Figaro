@@ -12,9 +12,14 @@ page-home {
 #titulo{
     text-align: center;
 }
-#fab{
+#fabRight{
     position: relative;
     float: right;
     margin-right: -10px;
+}
+#fabLefth{
+    position: relative;
+    float: left;
+    margin-left: 10px;
 }
 }

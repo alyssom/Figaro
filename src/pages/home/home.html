@@ -1,8 +1,12 @@
 <ion-header id="header">
-      <button color="figaro" ion-button icon-only menuToggle >
-          <ion-icon name="menu" > </ion-icon>
-        </button>
-        <ion-fab right edge id="fab">
+    <ion-fab right edge id="fabLefth">
+        <button ion-fab mini color="figaro"><ion-icon name="list-box"></ion-icon></button>
+        <ion-fab-list side="right">
+          <button ion-fab on-click="vaiMeusAgendamentos()"><ion-icon name="cut"></ion-icon></button>
+          <button ion-fab on-click="vaiLogout()"><ion-icon name="exit"></ion-icon></button>
+        </ion-fab-list>
+      </ion-fab>
+        <ion-fab right edge id="fabRight">
             <button ion-fab mini color="figaro"><ion-icon name="funnel"></ion-icon></button>
             <ion-fab-list>
               <button ion-fab on-click="filtraTodos()"><ion-icon name="list"></ion-icon></button>

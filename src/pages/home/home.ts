@@ -8,6 +8,8 @@ import { Subject } from 'rxjs/Subject';
 import { DetalhesBarbeariaPage } from '../detalhes-barbearia/detalhes-barbearia';
 import  Swal  from  'sweetalert2';
 import { CordovaCheckOptions, CordovaOptions } from '@ionic-native/core';
+import { MeusAgendamentosPage } from '../meus-agendamentos/meus-agendamentos';
+import { LoginPage } from '../login/login';
 
 
 @Component({
@@ -207,7 +209,13 @@ export class HomePage {
     this.barbearias = this.barbearias.filter(barbeariasBar);
   }
   filtraTodos(){
-    this.barbearias = this.barbearias2;
+    this.navCtrl.push(HomePage)
+  }
+  vaiMeusAgendamentos(){
+    this.navCtrl.push(MeusAgendamentosPage, {user: this.user})
+  }
+  vaiLogout(){
+    this.navCtrl.push(LoginPage)
   }
 
 
