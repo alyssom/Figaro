@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "5.2.10",
     "@ionic-native/core": "4.7.0",
     "@ionic-native/geolocation": "^4.7.0",
+    "@ionic-native/google-plus": "^4.16.0",
     "@ionic-native/http": "^4.7.0",
     "@ionic-native/splash-screen": "4.7.0",
     "@ionic-native/status-bar": "4.7.0",
@@ -66,7 +67,10 @@
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
       },
       "cordova-plugin-advanced-http": {},
-      "cordova-plugin-statusbar": {}
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "AIzaSyBBVD1p9Bi62MDalkZQbTMX3ql_hL54JjA"
+      }
     },
     "platforms": [
       "android",

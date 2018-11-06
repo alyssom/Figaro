@@ -10,6 +10,7 @@ import { MapaPage } from '../pages/mapa/mapa';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 import { FIREBASE_CREDENCIAL } from './firebase.credencial';
 
@@ -60,7 +61,8 @@ import { CadastroPage } from '../pages/cadastro/cadastro';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BarbeariasProvider,
     Geolocation,
-    HTTP 
+    HTTP,
+    GooglePlus
   ]
 })
 export class AppModule {}

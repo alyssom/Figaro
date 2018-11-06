@@ -20,20 +20,25 @@ export class MeusAgendamentosPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: AngularFireDatabase,
     private provider: BarbeariasProvider) {
+    this.buscaMeusAgendamentos();
+  }
+
+  ionViewDidLoad() {
+  }
+  buscaMeusAgendamentos(){
     this.db.list('/agendamentos', { preserveSnapshot: true })
     .subscribe(snapshots => {
       snapshots.forEach(snapshot => {
         console.log(snapshot);
-        console.log(provider.user)
-        if(snapshot.val().emailCliente == provider.user.email){
+        console.log(this.provider.user)
+        if(snapshot.val().emailCliente == this.provider.user.email){
           this.agendamentos.push(snapshot.val());
         }
       }
       )
     })
+    this.agendamentos = this.agendamentos.sort((agendamento)=>{
+      return agendamento.dataAgendamento;
+    })
   }
-
-  ionViewDidLoad() {
-  }
-
 }
