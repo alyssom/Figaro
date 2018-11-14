@@ -55,6 +55,7 @@ export class HomePage {
                           var logradouro = snapshot.val().logradouro;
                           var horarioAbre = snapshot.val().horario_de;
                           var horarioFecha = snapshot.val().horario_ate;
+                          var servicos = snapshot.val().servicos;
                           var resultadoDistancia = '0,1 Km';
 
                           this.barbearias.push({
@@ -63,7 +64,8 @@ export class HomePage {
                             "distancia": resultadoDistancia,
                             "foto": foto,
                             "horarioAbre": horarioAbre,
-                            "horarioFecha": horarioFecha
+                            "horarioFecha": horarioFecha,
+                            "servicos": servicos
                           })
                           this.barbearias2.push({
                             "nome": nome,
@@ -71,7 +73,8 @@ export class HomePage {
                             "distancia": resultadoDistancia,
                             "foto": foto,
                             "horarioAbre": horarioAbre,
-                            "horarioFecha": horarioFecha
+                            "horarioFecha": horarioFecha,
+                            "servicos": servicos
                           })
               }
             )})
@@ -112,6 +115,7 @@ export class HomePage {
                     var horarioAbre = snapshot.val().horario_de;
                     var horarioFecha = snapshot.val().horario_ate;
                     var estacionamento = snapshot.val().estacionamento;
+                    var servicos = snapshot.val().servicos;
                     var bar = snapshot.val().bar;
                     var resultadoDistancia;
 
@@ -137,7 +141,8 @@ export class HomePage {
                         "horarioAbre": horarioAbre,
                         "horarioFecha": horarioFecha,
                         "bar": bar,
-                        "estacionamento": estacionamento
+                        "estacionamento": estacionamento,
+                        "servicos": servicos
                       })
                       this.barbearias2.push({
                         "nome": nome,
@@ -147,7 +152,8 @@ export class HomePage {
                         "horarioAbre": horarioAbre,
                         "horarioFecha": horarioFecha,
                         "bar": bar,
-                        "estacionamento": estacionamento
+                        "estacionamento": estacionamento,
+                        "servicos": servicos
                       })
 
                     })

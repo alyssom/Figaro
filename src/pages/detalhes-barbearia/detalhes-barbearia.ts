@@ -21,7 +21,9 @@ export class DetalhesBarbeariaPage {
   foto;
   servicos;
   user;
-
+  bar = false;
+  estacionamento = false;
+   
   horarioAbre;
   horarioFecha;
   horarios = [];
@@ -50,7 +52,12 @@ export class DetalhesBarbeariaPage {
          this.horarios.push(this.horarioAbre + ":30");
     }
 
-
+    if(this.navParams.data.obj.bar == "sim"){
+      this.bar = true;
+    }
+    if(this.navParams.data.obj.estacionamento == "sim"){
+      this.estacionamento = true;
+    }
   }
 
   agendamento(params) {

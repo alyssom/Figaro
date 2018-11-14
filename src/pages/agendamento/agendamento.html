@@ -30,10 +30,13 @@
     </ion-item>
     <ion-item>
       <ion-label>Serviço</ion-label>
-      <ion-select [(ngModel)]="servico">
+      <ion-select [(ngModel)]="servico" *ngIf="todosServicos">
         <ion-option value="barba" > BARBA</ion-option>
         <ion-option value="cabelo"> CABELO</ion-option>
         <ion-option value="barbaEcabelo" > BARBA E CABELO</ion-option>
+       </ion-select>
+       <ion-select [(ngModel)]="servico" *ngIf="umServico">
+        <ion-option value="{{servicos}}" > {{servicos}}</ion-option>
        </ion-select>
     </ion-item>
   </div>

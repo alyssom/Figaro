@@ -24,12 +24,17 @@
         {{nome}}
       </ion-item>
       <ion-item id="endereco">
-        <ion-icon ios="ios-home" md="md-home"></ion-icon> {{logradouro}}
+        <ion-icon ios="ios-home" md="md-home"></ion-icon> <a href="https://www.google.com.br/maps/search/{{logradouro}}" target="_system">{{logradouro}}</a> 
       </ion-item>
-      <ion-item id="servicos">
-        {{servicos}}
-      </ion-item>
-  
+
+      <ion-item id="estacionamento" *ngIf="estacionamento">
+        <ion-icon name="car"> Estacionamento</ion-icon>
+       </ion-item>
+ 
+       <ion-item id="bar" *ngIf="bar">
+         <ion-icon name="beer"> Bar</ion-icon>
+       </ion-item>
+
       <ion-item>
         Horários de atendimento : {{horariosAtendimento}}
       </ion-item>

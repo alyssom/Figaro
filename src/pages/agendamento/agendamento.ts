@@ -18,7 +18,7 @@ import { BarbeariasProvider } from '../../providers/barbearias/barbearias';
 export class AgendamentoPage {
   
   nome;
-  servicos;
+  servicos: String;
   obj;
   horarioAbre;
   horarioFecha;
@@ -29,6 +29,8 @@ export class AgendamentoPage {
   foto;
   email;
 
+  todosServicos = false;
+  umServico = false;
    swal = require('sweetalert2')
 
   constructor(public navCtrl: NavController, public NavParams: NavParams, private fdb: AngularFireDatabase,
@@ -41,6 +43,12 @@ export class AgendamentoPage {
     this.horarios = this.NavParams.data.horarios;
     this.foto = this.NavParams.data.foto;
     this.email = provider.user.email;
+
+    if(this.servicos.split(' ').length > 1){
+      this.todosServicos = true;
+    }else{
+      this.umServico = true;
+    }
 
     var d = new Date();
     this.dataAtual = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate() ;
